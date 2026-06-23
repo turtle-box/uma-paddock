@@ -10,14 +10,14 @@ ROOT = Path(__file__).parent
 OVERLAY = ROOT / "overlay"
 TEAMS = 3
 UMAS_PER_TEAM = 3
-LAYOUT_KEYS = [
-    "boxWidth",
-    "cellVerticalPadding",
-    "boxSpacing",
-    "xOffset",
-    "yOffset",
-    "iconBaseUrl",
-]
+
+
+def _trainer_keys() -> set[str]:
+    keys = set()
+    for team in range(1, TEAMS + 1):
+        keys.add(f"trainer{team}")
+        keys.add(f"trainer{team}gates")
+    return keys
 
 
 def build_options(data: dict, labels: list[str], icons: set[str]) -> dict[str, str]:
@@ -41,6 +41,7 @@ def uma_dropdown(team: int, slot: int, options: dict[str, str]) -> dict:
 
 
 def assemble_fields(base: dict, options: dict[str, str]) -> dict:
+    reserved = _trainer_keys()
     fields = {}
     for team in range(1, TEAMS + 1):
         fields[f"trainer{team}"] = base[f"trainer{team}"]
@@ -48,17 +49,9 @@ def assemble_fields(base: dict, options: dict[str, str]) -> dict:
         for slot in range(1, UMAS_PER_TEAM + 1):
             fields[f"tr{team}uma{slot}"] = uma_dropdown(team, slot, options)
 
-    for key in LAYOUT_KEYS:
-        fields[key] = base[key]
-
-    if "fontColor" not in base:
-        fields["fontColor"] = {
-            "type": "colorpicker",
-            "label": "Font Color",
-            "value": "#ffffff",
-        }
-    else:
-        fields["fontColor"] = base["fontColor"]
+    for key, value in base.items():
+        if key not in reserved:
+            fields[key] = value
 
     return fields
 
