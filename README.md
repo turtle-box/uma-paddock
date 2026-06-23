@@ -31,9 +31,9 @@ Uma Musume Pretty Derby is © Cygames, Inc. This is an unofficial fan project an
    ```
    https://raw.githubusercontent.com/turtle-box/uma-paddock/main/icons
    ```
-4. Configure trainer names, gate positions, and uma dropdowns in the left panel.
+4. Configure trainer names, team umas, and starting gate positions in the left panel.
 
-To change layout defaults (sliders, gate placeholders), edit `overlay/fields-base.json`, then regenerate the dropdown fields using this command:
+To change layout defaults (eg. sliders, gate placeholders), edit `overlay/fields-base.json`, then regenerate the dropdown fields using this command:
 
 ```bash
 python generate_streamelements.py
