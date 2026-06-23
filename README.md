@@ -20,13 +20,6 @@ Uma Musume Pretty Derby is © Cygames, Inc. This is an unofficial fan project an
 | `uma.py` | Icon renaming utilities (optional) |
 | `uma_list.txt` | Uma roster (dropdowns + icon renaming; auto-sorted when scripts run) |
 
-Preview an icon slug before adding a uma:
-
-```bash
-python3 slug.py "Character Name (Variant)"              # icon slug stem
-python3 slug.py -e png "Character Name (Variant)"       # icons/ filename
-```
-
 ## StreamElements setup
 
 1. Create a custom overlay in the StreamElements overlay editor.
@@ -58,6 +51,22 @@ After pushing, verify a URL in your browser:
 ```
 https://raw.githubusercontent.com/turtle-box/uma-paddock/main/icons/special_week.png
 ```
+
+## Adding umas to the roster
+1. Add an uma like `Aston Machan` to `uma_list.txt`, along with the event name in parentheses if applicable.
+2. Upload the icon file to `icons/` or your custom host, making sure it follows the same naming convention as the other files.
+   - if you're not sure how to name the file(s), you can generate the filename(s) using `slug.py`:
+   ```bash
+   python3 slug.py "Satono Diamond (New Year)"             # icon slug stem(s)
+   python3 slug.py -e png "Aston Machan" "Daitaku Helios"  # icon filename(s) with extension(s)
+   ```
+3. Regenerate `overlay/fields.json` using:
+```bash
+python generate_streamelements.py
+```
+4. Commit and push all changes to the project if needed
+5. Open your current overlay in the StreamElements overlay editor
+6. Copy the contents of `overlay/fields.json` to the FIELDS tab and save your changes
 
 ## License
 
