@@ -1,0 +1,125 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+    color: {{fontColor}};
+    font-size: 14px;
+    overflow: hidden;
+}
+
+@property --light-text {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: white;
+}
+
+@property --dark-text {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: black;
+}
+
+.gate1, .gate1 p {
+    background-color: #fdfeff;
+    color: var(--dark-text);
+}
+
+.gate2, .gate2 p {
+    background-color: #221f21;
+    color: var(--light-text);
+}
+
+.gate3, .gate3 p {
+    background-color: #ec1f25;
+    color: var(--light-text);
+}
+
+.gate4, .gate4 p {
+    background-color: #0072bc;
+    color: var(--light-text);
+}
+
+.gate5, .gate5 p {
+    background-color: #fff100;
+    color: var(--dark-text);
+}
+
+.gate6, .gate6 p {
+    background-color: #00a551;
+    color: var(--light-text);
+}
+
+.gate7, .gate7 p {
+    background-color: #f17022;
+    color: var(--light-text);
+}
+
+.gate8, .gate8 p, .gate9, .gate9 p {
+    background-color: #ed5ba1;
+    color: var(--light-text);
+}
+
+.main-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#widget {
+    position: relative;
+    left: {{xOffset}}rem;
+    top: {{yOffset}}rem;
+    display: flex;
+    flex-direction: column;
+    width: {{boxWidth}}rem;
+    gap: {{boxSpacing}}px;
+}
+
+.torena-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.torena-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #4e4e4e;
+    color: white;
+    height: 50%;
+    border: 1px solid black;
+    padding-block: {{cellVerticalPadding}}px;
+}
+
+.torena-header p {
+    align-content: center;
+}
+
+.torena-uma {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 50%;
+    width: 100%;
+    padding-block: {{cellVerticalPadding}}px;
+}
+
+.uma-gate, .uma-icon {
+    display: inline-block;
+    margin-inline: 10px;
+}
+
+.uma-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.uma-icon:not([src]), .uma-icon[src=""] {
+    visibility: hidden;
+}

@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Windows/WSL alternate data stream metadata
+*:Zone.Identifier
+
+# Editor / OS
+.DS_Store
+.rename_tmp_*.png
