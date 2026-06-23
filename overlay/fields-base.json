@@ -37,12 +37,28 @@
     "max": 50,
     "step": 1
   },
+  "cellHeight": {
+    "type": "slider",
+    "label": "Cell Height (in px)",
+    "value": 16,
+    "min": 10,
+    "max": 100,
+    "step": 1
+  },
   "cellVerticalPadding": {
     "type": "slider",
     "label": "Padding above and below block cells (in px)",
     "value": 0,
     "min": 0,
     "max": 20,
+    "step": 1
+  },
+  "iconSize": {
+    "type": "slider",
+    "label": "Icon Size (in px)",
+    "value": 48,
+    "min": 10,
+    "max": 100,
     "step": 1
   },
   "boxSpacing": {
@@ -73,5 +89,23 @@
     "type": "text",
     "label": "Icon base URL (no trailing slash)",
     "value": "https://raw.githubusercontent.com/turtle-box/uma-paddock/main/icons"
+  },
+  "customFont": {
+    "label": "Custom Font Name",
+    "type": "text",
+    "value": "FOT-UDKakugoC80 Pro B"
+  },
+  "fontSize": {
+    "type": "slider",
+    "label": "Font Size (in px)",
+    "value": 16,
+    "min": 10,
+    "max": 100,
+    "step": 1
+  },
+  "fontColor": {
+    "type": "colorpicker",
+    "label": "Font Color",
+    "value": "#ffffff"
   }
 }

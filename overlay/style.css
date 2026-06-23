@@ -1,8 +1,12 @@
 * {
-    font-family: 'Montserrat', sans-serif;
+    font-family: {{customFont}}, 'Montserrat', sans-serif;
     color: {{fontColor}};
-    font-size: 14px;
+    font-size: 16px;
     overflow: hidden;
+}
+
+p {
+  margin: 0;
 }
 
 @property --light-text {
@@ -67,11 +71,11 @@
 
 #widget {
     position: relative;
-    left: {{xOffset}}rem;
-    top: {{yOffset}}rem;
+    left: calc({{xOffset}}*16px);
+    top: calc({{yOffset}}*16px);
     display: flex;
     flex-direction: column;
-    width: {{boxWidth}}rem;
+    width: calc({{boxWidth}}*16px);
     gap: {{boxSpacing}}px;
 }
 
@@ -89,13 +93,14 @@
     justify-content: center;
     background-color: #4e4e4e;
     color: white;
-    height: 50%;
     border: 1px solid black;
     padding-block: {{cellVerticalPadding}}px;
+    height: {{cellHeight}}px;
 }
 
 .torena-header p {
     align-content: center;
+    font-size: {{fontSize}}px;
 }
 
 .torena-uma {
@@ -103,20 +108,29 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
-    height: 50%;
+    justify-content: space-evenly;
     width: 100%;
+    height: {{cellHeight}}px;
     padding-block: {{cellVerticalPadding}}px;
 }
 
-.uma-gate, .uma-icon {
-    display: inline-block;
-    margin-inline: 10px;
+.uma-gate-container, .uma-icon-container {
+    font-size: {{fontSize}}px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: {{iconSize}}px;
+    min-height: {{iconSize}}px;
+}
+
+.uma-gate {
+    font-size: {{fontSize}}px;
 }
 
 .uma-icon {
-    width: 48px;
-    height: 48px;
+    width: {{iconSize}}px;
+    height: {{iconSize}}px;
     object-fit: contain;
 }
 
