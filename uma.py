@@ -5,6 +5,19 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 ICONS_DIR = ROOT / "icons"
+UMA_LIST = ROOT / "uma_list.txt"
+
+
+def sync_uma_list(path: Path = UMA_LIST) -> list[str]:
+    """Read uma list, drop blanks, sort alphabetically, write back."""
+    labels = [
+        line.strip()
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    labels = sorted(labels, key=str.casefold)
+    path.write_text("\n".join(labels) + ("\n" if labels else ""), encoding="utf-8")
+    return labels
 
 ICON_PATTERN = re.compile(r"trained_chr_icon_(\d+)_(\d+)_01\.png$")
 
@@ -141,11 +154,13 @@ def rename_icons(icons_dir: Path, mapping: dict[str, str], epithet_map: dict[str
 
 
 if __name__ == "__main__":
+    sync_uma_list()
+
     with (ROOT / "umas.json").open(encoding="utf-8") as f:
         data = json.load(f)
 
     epithet_map = outfit_filename_map(data)
-    mapping = txt_filename_map(ROOT / "umas_up_to_trackblazer.txt", data, ICONS_DIR, epithet_map)
+    mapping = txt_filename_map(UMA_LIST, data, ICONS_DIR, epithet_map)
     count = rename_icons(ICONS_DIR, mapping, epithet_map)
 
-    print(f"Renamed {count} files ({len(mapping)} trackblazer outfits mapped)")
+    print(f"Renamed {count} files ({len(mapping)} outfits mapped)")

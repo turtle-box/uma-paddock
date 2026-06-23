@@ -17,7 +17,7 @@ Uma Musume Pretty Derby is © Cygames, Inc. This is an unofficial fan project an
 | `umas.json` | Character/outfit metadata (from uma-tools) |
 | `generate_streamelements.py` | Regenerates `overlay/fields.json` dropdown options |
 | `uma.py` | Icon renaming utilities (optional) |
-| `umas_up_to_trackblazer*.txt` | Trackblazer roster lists |
+| `uma_list.txt` | Uma roster (dropdowns + icon renaming; auto-sorted when scripts run) |
 
 ## StreamElements setup
 

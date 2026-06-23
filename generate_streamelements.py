@@ -4,7 +4,7 @@ import json
 import re
 from pathlib import Path
 
-from uma import ICONS_DIR, norm_char, slugify
+from uma import ICONS_DIR, UMA_LIST, norm_char, slugify, sync_uma_list
 
 ROOT = Path(__file__).parent
 OVERLAY = ROOT / "overlay"
@@ -76,6 +76,8 @@ def assemble_fields(base: dict, options: dict[str, str]) -> dict:
 
 
 def main() -> None:
+    labels = sync_uma_list(UMA_LIST)
+
     base_path = OVERLAY / "fields-base.json"
     with base_path.open(encoding="utf-8") as f:
         base = json.load(f)
@@ -88,13 +90,6 @@ def main() -> None:
         for p in ICONS_DIR.glob("*.png")
         if not p.name.startswith("trained_chr_icon_")
     }
-    labels = [
-        line.strip()
-        for line in (ROOT / "umas_up_to_trackblazer_alphabetical.txt")
-        .read_text(encoding="utf-8")
-        .splitlines()
-        if line.strip()
-    ]
 
     options = build_options(data, labels, icons)
     fields = assemble_fields(base, options)

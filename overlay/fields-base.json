@@ -39,7 +39,7 @@
   },
   "cellVerticalPadding": {
     "type": "slider",
-    "label": "Padding aboce and below block cells (in px)",
+    "label": "Padding above and below block cells (in px)",
     "value": 0,
     "min": 0,
     "max": 20,
