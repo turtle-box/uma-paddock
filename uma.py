@@ -1,7 +1,8 @@
 import json
 import re
-import unicodedata
 from pathlib import Path
+
+from slug import norm_char, slugify
 
 ROOT = Path(__file__).parent
 ICONS_DIR = ROOT / "icons"
@@ -20,18 +21,6 @@ def sync_uma_list(path: Path = UMA_LIST) -> list[str]:
     return labels
 
 ICON_PATTERN = re.compile(r"trained_chr_icon_(\d+)_(\d+)_01\.png$")
-
-
-def slugify(text: str) -> str:
-    text = unicodedata.normalize("NFKD", text.strip("[]"))
-    text = "".join(c for c in text if not unicodedata.combining(c))
-    text = text.lower().replace("'", "")
-    text = re.sub(r"[^a-z0-9]+", "_", text)
-    return text.strip("_")
-
-
-def norm_char(name: str) -> str:
-    return re.sub(r"[^a-z0-9]", "", name.lower())
 
 
 def outfit_filename_map(data: dict) -> dict[str, str]:

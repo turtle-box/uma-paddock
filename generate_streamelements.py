@@ -1,10 +1,10 @@
 """Build overlay/fields.json from fields-base.json plus generated uma dropdowns."""
 
 import json
-import re
 from pathlib import Path
 
-from uma import ICONS_DIR, UMA_LIST, norm_char, slugify, sync_uma_list
+from slug import build_norm_to_cid, label_to_icon_slug
+from uma import ICONS_DIR, UMA_LIST, sync_uma_list
 
 ROOT = Path(__file__).parent
 OVERLAY = ROOT / "overlay"
@@ -20,24 +20,12 @@ LAYOUT_KEYS = [
 ]
 
 
-def label_to_slug(label: str, data: dict, norm_to_cid: dict[str, str]) -> str:
-    match = re.match(r"^(.+?)\s*\((.+)\)$", label)
-    if match:
-        char, variant = match.group(1).strip(), match.group(2).strip()
-    else:
-        char, variant = label, None
-    cid = norm_to_cid.get(norm_char(char))
-    char_slug = slugify(data[cid]["name"][1]) if cid else slugify(char)
-    return char_slug if not variant else f"{char_slug}-{slugify(variant)}"
-
-
 def build_options(data: dict, labels: list[str], icons: set[str]) -> dict[str, str]:
-    norm_to_cid = {norm_char(c["name"][1]): cid for cid, c in data.items()}
-    norm_to_cid.setdefault(norm_char("TM Opera O"), norm_to_cid.get(norm_char("T.M. Opera O")))
+    norm_to_cid = build_norm_to_cid(data)
 
     options = {"": "— None —"}
     for label in labels:
-        slug = label_to_slug(label, data, norm_to_cid)
+        slug = label_to_icon_slug(label, data, norm_to_cid)
         if slug in icons:
             options[slug] = label
     return options
