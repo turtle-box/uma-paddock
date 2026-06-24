@@ -34,7 +34,7 @@ Uma Musume Pretty Derby is © Cygames, Inc. This is an unofficial fan project an
    ```
 4. Configure trainer names, team umas, and starting gate positions in the left panel.
 
-### Custom fonts
+## Custom fonts
 
 In order to use custom fonts, the font must either be uploaded at some static link (e.g. under `fonts/` in this project, using the `raw.githubusercontent.com` direct link to the file) or installed locally to be fetched and rendered properly.
 
@@ -45,7 +45,7 @@ The font resolution order is as follows:
 3. **Montserrat** — Google Fonts (in `uma-paddock.html`)
 4. **sans-serif** — generic fallback
 
-CSS starts on Montserrat until JS runs. Set **Custom Font Name** to match your chosen alias (or the installed font's exact family name for local use). Set **Font file URL** to a direct HTTPS link (e.g. a `raw.githubusercontent.com` URL) so viewers see the same font.
+CSS starts on Montserrat until JS runs. Set **Custom Font Name** to match your chosen alias (or the installed font's exact family name for local use). Make sure **Font file URL** is set to a direct HTTPS link (e.g. a `raw.githubusercontent.com` URL).
 
 ```bash
 # example raw GitHub font URL
