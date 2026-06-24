@@ -1,8 +1,11 @@
 * {
-    font-family: 'Montserrat', sans-serif;
     color: {{fontColor}};
     font-size: 16px;
     overflow: hidden;
+}
+
+#widget {
+    font-family: 'Montserrat', sans-serif;
 }
 
 p {
