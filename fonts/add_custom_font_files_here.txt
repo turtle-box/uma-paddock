@@ -1,0 +1,5 @@
+To use a custom font, upload it here and then copy the raw.githubusercontent.com url.
+You can then paste this link into the "Font file URL" field in the StreamElements editor, as well as name the font, in order to render your font.
+
+Example URL:
+https://raw.githubusercontent.com/turtle-box/uma-paddock/main/fonts/my-font.woff2

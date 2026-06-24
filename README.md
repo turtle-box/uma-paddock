@@ -34,6 +34,26 @@ Uma Musume Pretty Derby is © Cygames, Inc. This is an unofficial fan project an
    ```
 4. Configure trainer names, team umas, and starting gate positions in the left panel.
 
+### Custom fonts
+
+In order to use custom fonts, the font must either be uploaded at some static link (e.g. under `fonts/` in this project, using the `raw.githubusercontent.com` direct link to the file) or installed locally to be fetched and rendered properly.
+
+The font resolution order is as follows:
+
+1. **Font file URL** — loaded via font loading script in `script.js`
+2. **Local install** — if the URL fails or is empty, the browser tries a system font matching **Custom Font Name** in `fields.json`
+3. **Montserrat** — Google Fonts (in `uma-paddock.html`)
+4. **sans-serif** — generic fallback
+
+CSS starts on Montserrat until JS runs. Set **Custom Font Name** to match your chosen alias (or the installed font's exact family name for local use). Set **Font file URL** to a direct HTTPS link (e.g. a `raw.githubusercontent.com` URL) so viewers see the same font.
+
+```bash
+# example raw GitHub font URL
+https://raw.githubusercontent.com/turtle-box/uma-paddock/main/fonts/my-font.woff2
+```
+
+Re-paste `overlay/script.js`, `overlay/style.css`, and `overlay/fields.json` after changing font settings.
+
 To change layout defaults (eg. sliders, gate placeholders), edit `overlay/fields-base.json`, then regenerate the dropdown fields using this command:
 
 ```bash
