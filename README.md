@@ -64,12 +64,19 @@ Re-paste `overlay/fields.json` into StreamElements after regenerating.
 
 ## Hosting icons on GitHub
 
-The overlay loads PNGs over HTTPS. A **public** repository is required for `raw.githubusercontent.com` URLs to work in OBS/StreamElements without authentication.
+All uma icons used by the overlay should be hosted in the same place, at an HTTPS url that is publicly accessible.
 
-After pushing, verify a URL in your browser:
+By default, the project uses the `.png` files stored at `icons/`, and so the `Icon base URL` in the widget's fields is set to `https://raw.githubusercontent.com/turtle-box/uma-paddock/main/icons`.
+You can change this base url to whichever host you are using, as long as all the icon files are stored there and follow the same naming convention as the images stored in this repository.
+
+After pushing to this repository, verify a URL in your browser:
 
 ```
 https://raw.githubusercontent.com/turtle-box/uma-paddock/main/icons/special_week.png
+
+OR
+
+https://<your-base-url>/special_week.png
 ```
 
 ## Adding umas to the roster
