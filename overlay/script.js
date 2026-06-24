@@ -4,19 +4,20 @@ window.addEventListener('onEventReceived', function (obj) {
     }
 });
 
-const FALLBACK_STACK = "Montserrat, sans-serif";
+var FALLBACK_STACK = "Montserrat, sans-serif";
+var GATE_CLASSES = "gate1 gate2 gate3 gate4 gate5 gate6 gate7 gate8 gate9";
 
 function applyFontStack(family) {
     if (family) {
-        $("#widget").css("font-family", `'${family}', ${FALLBACK_STACK}`);
+        $("#widget").css("font-family", "'" + family + "', " + FALLBACK_STACK);
     } else {
         $("#widget").css("font-family", FALLBACK_STACK);
     }
 }
 
-async function loadCustomFont(fontFamily, fontUrl) {
-    const family = (fontFamily || "").trim();
-    const url = (fontUrl || "").trim();
+function loadCustomFont(fontFamily, fontUrl) {
+    var family = (fontFamily || "").trim();
+    var url = (fontUrl || "").trim();
 
     if (!family) {
         applyFontStack("");
@@ -24,46 +25,46 @@ async function loadCustomFont(fontFamily, fontUrl) {
     }
 
     if (url) {
-        try {
-            const face = new FontFace(family, `url(${url})`);
-            await face.load();
+        var face = new FontFace(family, "url(" + url + ")");
+        face.load().then(function () {
             document.fonts.add(face);
             applyFontStack(family);
-            return;
-        } catch (err) {
+        }).catch(function (err) {
             console.warn("Custom font URL failed to load:", err);
-        }
+            applyFontStack(family);
+        });
+        return;
     }
 
     applyFontStack(family);
 }
 
 function setGates(trainerIndex, gatesRaw) {
-    const gates = gatesRaw.split(",").map(s => s.trim());
-    for (let i = 0; i < 3; i++) {
-        const uma = $(`#tr${trainerIndex}uma${i + 1}`);
-        uma.removeClass(function (_, cls) {
-            return (cls.match(/\bgate\d+\b/g) || []).join(" ");
-        });
-        uma.addClass(`gate${gates[i]}`);
+    var gates = gatesRaw.split(",").map(function (s) { return s.trim(); });
+    var i;
+    for (i = 0; i < 3; i++) {
+        var uma = $("#tr" + trainerIndex + "uma" + (i + 1));
+        uma.removeClass(GATE_CLASSES);
+        uma.addClass("gate" + gates[i]);
         uma.find(".uma-gate").text(gates[i] || "");
     }
 }
 
 function setIcons(fieldData, baseUrl) {
-    for (let t = 1; t <= 3; t++) {
-        for (let u = 1; u <= 3; u++) {
-            const slug = fieldData[`tr${t}uma${u}`];
-            const img = $(`#tr${t}uma${u}`).find(".uma-icon");
-            img.attr("src", slug ? `${baseUrl}/${slug}.png` : "");
+    var t, u, slug, img;
+    for (t = 1; t <= 3; t++) {
+        for (u = 1; u <= 3; u++) {
+            slug = fieldData["tr" + t + "uma" + u];
+            img = $("#tr" + t + "uma" + u).find(".uma-icon");
+            img.attr("src", slug ? baseUrl + "/" + slug + ".png" : "");
         }
     }
 }
 
 window.addEventListener('onWidgetLoad', function (obj) {
-    const fieldData = obj.detail.fieldData;
-    const baseUrl = (fieldData.iconBaseUrl || "").replace(/\/$/, "");
-    $.when(loadCustomFont(fieldData.customFont, fieldData.fontUrl)).fail(console.warn);
+    var fieldData = obj.detail.fieldData;
+    var baseUrl = (fieldData.iconBaseUrl || "").replace(/\/$/, "");
+    loadCustomFont(fieldData.customFont, fieldData.fontUrl);
     setGates(1, fieldData.trainer1gates);
     setGates(2, fieldData.trainer2gates);
     setGates(3, fieldData.trainer3gates);
