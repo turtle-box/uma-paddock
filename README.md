@@ -34,6 +34,14 @@ Uma Musume Pretty Derby is © Cygames, Inc. This is an unofficial fan project an
    ```
 4. Configure trainer names, team umas, and starting gate positions in the left panel.
 
+To change layout defaults (eg. sliders, gate placeholders), edit `overlay/fields-base.json`, then regenerate the dropdown fields using this command:
+
+```bash
+python generate_streamelements.py
+```
+
+Re-paste `overlay/fields.json` into StreamElements after regenerating.
+
 ## Custom fonts
 
 In order to use custom fonts, the font must either be uploaded at some static link (e.g. under `fonts/` in this project, using the `raw.githubusercontent.com` direct link to the file) or installed locally to be fetched and rendered properly.
@@ -51,16 +59,6 @@ CSS starts on Montserrat until JS runs. Set **Custom Font Name** to match your c
 # example raw GitHub font URL
 https://raw.githubusercontent.com/turtle-box/uma-paddock/main/fonts/my-font.woff2
 ```
-
-Re-paste `overlay/script.js`, `overlay/style.css`, and `overlay/fields.json` after changing font settings.
-
-To change layout defaults (eg. sliders, gate placeholders), edit `overlay/fields-base.json`, then regenerate the dropdown fields using this command:
-
-```bash
-python generate_streamelements.py
-```
-
-Re-paste `overlay/fields.json` into StreamElements after regenerating.
 
 ## Hosting icons on GitHub
 
