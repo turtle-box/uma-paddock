@@ -18,6 +18,8 @@ Uma Musume Pretty Derby is © Cygames, Inc. This is an unofficial fan project an
 | `generate_streamelements.py` | Regenerates `overlay/fields.json` dropdown options |
 | `slug.py` | Icon slug helpers and CLI |
 | `uma.py` | Icon renaming utilities (optional) |
+| `sync_umas.py` | Syncs the roster and icons from uma-tools |
+| `event_aliases.txt` | Event names for event costumes (edit by hand) |
 | `uma_list.txt` | Uma roster (dropdowns + icon renaming; auto-sorted when scripts run) |
 
 ## StreamElements setup
@@ -77,7 +79,73 @@ OR
 https://<your-base-url>/special_week.png
 ```
 
-## Adding umas to the roster
+## Syncing the roster
+
+`sync_umas.py` pulls the latest Global roster and character icons from [alpha123/uma-tools](https://github.com/alpha123/uma-tools), so you don't have to add them manually. It reads these two files from that project, always using their newest version:
+
+- [`umalator-global/umas.json`](https://github.com/alpha123/uma-tools/blob/master/umalator-global/umas.json), the list of characters and their outfits
+- [`icons.json`](https://github.com/alpha123/uma-tools/blob/master/icons.json), which maps each outfit to its icon in [`icons/chara`](https://github.com/alpha123/uma-tools/tree/master/icons/chara)
+
+To sync, just run:
+
+```bash
+python sync_umas.py
+```
+
+To see what would change without touching any files, add `--preview`:
+
+```bash
+python sync_umas.py --preview
+```
+
+The sync will add any new umas, costumes, and icons into the local project.
+
+If new event outfits are detected, the sync will pause and allow you to give each one a custom nickname in the file `event_aliases.txt`. If you don't nickname an uma's costume, it will simply show up in the dropdown under its default name. Previously defined nicknames are preserved, and will not be affected by the sync.
+
+Edit the file (or not) in a text editor, save your changes, and then press Enter.
+
+It will then rebuild `overlay/fields.json` to reflect your aliases in the dropdown menus. You can paste this updated file into the FIELDS tab in StreamElements.
+
+Afterwards, you will need to commit these changes to push these new icons to the GitHub repo if you rely on it to serve your images.
+
+```bash
+git add .
+git commit -m "added new umas up to Nov 2026"
+git push
+```
+
+Each sync prints which uma-tools commit it used. If the newest data ever breaks something, you can sync from an older commit instead:
+
+```bash
+python sync_umas.py --ref <commit-sha>
+```
+
+## Defining aliases for event costumes
+
+Event costumes come from uma-tools with their in-game titles, like `[Precise Chocolatier]`, rather than event names like `Valentine`. `event_aliases.txt` lets you give each costume a friendlier label for the dropdown. Open it in any text editor; each line looks like this:
+
+```
+# Uma name: In-game title = Event name
+Eishin Flash: Precise Chocolatier = Valentine
+Gold Ship: RUN! RUIN! LAUNCHER! = Summer
+```
+
+- Type the event name after the `=`. The dropdown then shows it as `Eishin Flash (Valentine)`.
+- **If you leave it blank, the costume's original in-game title is used by default.** A line with no `=`, or with nothing but spaces or symbols after it, is simply skipped.
+- Matching is lenient: capital letters, accents, punctuation and extra spaces don't matter, and small typos in the uma name or title are still matched. The scripts tell you which costume each line matched, and list any line they couldn't match instead of guessing.
+
+To change aliases later, you don't need to sync again. Edit the file, then rebuild the dropdowns with:
+
+```bash
+python generate_streamelements.py
+```
+
+Then paste the new `overlay/fields.json` into the FIELDS tab in StreamElements.
+
+## Adding umas manually
+
+If an uma isn't in uma-tools yet, you can still add one by hand:
+
 1. Add an uma like `Aston Machan` to `uma_list.txt`, along with the event name in parentheses if applicable.
 2. Upload the icon file to `icons/` or your custom host, making sure it follows the same naming convention as the other files.
    - if you're not sure how to name the file(s), you can generate the filename(s) using `slug.py`:
